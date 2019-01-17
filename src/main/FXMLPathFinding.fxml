@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="500" prefWidth="1240" spacing="40" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLPathFindingController">
+    <padding>
+   		<Insets bottom="25.0" top="25.0" />
+    </padding>
+    <children>
+   
+   	
+   	<GridPane hgap="0" vgap="0" fx:id="gridPane" minHeight="500" minWidth="500" maxHeight="500" maxWidth="500" >
+         <HBox.margin>
+            <Insets left="25.0" />
+         </HBox.margin>
+    </GridPane>
+	
+   	
+   	<VBox alignment="TOP_CENTER" spacing="20">
+         <children>
+            <VBox spacing="10">
+               <children>
+                  <HBox spacing="10">
+                     <children>
+                        <Label text="Dimensions:">
+                           <HBox.margin>
+                              <Insets top="4.0" />
+                           </HBox.margin></Label>
+                        <TextField fx:id="dimensionsField" maxWidth="50" />
+                        <Button mnemonicParsing="false" onAction="#handleGenerateButtonAction" text="Generate" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox spacing="10">
+               <children>
+                  <RadioButton mnemonicParsing="false" text="AStar">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="algorithm" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" text="DFS" toggleGroup="$algorithm" />
+                  <RadioButton mnemonicParsing="false" text="Dijkstra" toggleGroup="$algorithm" />
+               </children>
+            </VBox>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Left click/drag to place walls" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Right click/drag to destroy walls" />
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </VBox>
+   </children>	
+</HBox>

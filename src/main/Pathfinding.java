@@ -144,8 +144,8 @@ public class Pathfinding {
 		Set<Node> visited = new HashSet<>();
 		
 		start.localCost = 0;
-//		start.globalCost = start.localCost + calculateManhattanDistance(start, end);
-		start.globalCost = start.localCost + pythagoreanDistance(start, end);
+		start.globalCost = calculateManhattanDistance(start, end);
+		//start.globalCost = pythagoreanDistance(start, end);
 		
 		unvisited.add(start);
 		
@@ -164,12 +164,12 @@ public class Pathfinding {
 					
 					if (newLocal < x.localCost) {
 						x.localCost = newLocal;
-//						x.globalCost = x.localCost + calculateManhattanDistance(x, end);
-						x.globalCost = x.localCost + pythagoreanDistance(x, end);
+						x.globalCost = x.localCost + calculateManhattanDistance(x, end);
+//						x.globalCost = x.localCost + pythagoreanDistance(x, end);
 						x.predecessor = current;
 					}
 					
-					if (!unvisited.contains(x) && !visited.contains(x)) {
+					if (!unvisited.contains(x) && !visited.contains(x)  ) {
 						unvisited.add(x);
 					}
 				}

@@ -5,22 +5,18 @@ import java.util.ArrayList;
 public class Grid {
 
     public static final int N = 25;
-    public static Grid grid;
+    
     private Node[][] area;
 
-    public static Grid getInstance() {
-        if (grid == null) {
-            grid = new Grid();
-            return grid;
-        }
-        return grid;
-    }
-
-    private Grid() {
-        area = new Node[N][N];
+    public Grid(int dimensions) {
+        area = new Node[dimensions][dimensions];
     }
 
     public void setNode(Node b) {
+    	
+    	double x = b.getX();
+    	double y = b.getY();
+    	
         area[(int) b.getX()][(int) b.getY()] = b;
     }
 
@@ -37,13 +33,13 @@ public class Grid {
     	int posY = (int) b.getY();
     	
     	if (posX - 1 >= 0)
-    		adjNodes.add(grid.getNode(posX - 1, posY));
+    		adjNodes.add(getNode(posX - 1, posY));
     	if (posX + 1 < Grid.N)
-    		adjNodes.add(grid.getNode(posX + 1, posY));
+    		adjNodes.add(getNode(posX + 1, posY));
     	if (posY - 1 >= 0)
-    		adjNodes.add(grid.getNode(posX, posY - 1));
+    		adjNodes.add(getNode(posX, posY - 1));
     	if (posY + 1 < Grid.N)
-    		adjNodes.add(grid.getNode(posX, posY + 1));
+    		adjNodes.add(getNode(posX, posY + 1));
     	
     	return adjNodes;
     }
@@ -53,5 +49,4 @@ public class Grid {
     	if (x >= Grid.N || y >= Grid.N) return false;
     	return true;
     }
-
 }
