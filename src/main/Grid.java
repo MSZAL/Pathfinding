@@ -2,13 +2,12 @@ package main;
 
 import java.util.ArrayList;
 
-public class Grid {
-
-    public static final int N = 25;
-    
+public class Grid {    
     private Node[][] area;
+    private int dimensions;
 
     public Grid(int dimensions) {
+    	this.dimensions = dimensions;
         area = new Node[dimensions][dimensions];
     }
 
@@ -34,11 +33,11 @@ public class Grid {
     	
     	if (posX - 1 >= 0)
     		adjNodes.add(getNode(posX - 1, posY));
-    	if (posX + 1 < Grid.N)
+    	if (posX + 1 < dimensions)
     		adjNodes.add(getNode(posX + 1, posY));
     	if (posY - 1 >= 0)
     		adjNodes.add(getNode(posX, posY - 1));
-    	if (posY + 1 < Grid.N)
+    	if (posY + 1 < dimensions)
     		adjNodes.add(getNode(posX, posY + 1));
     	
     	return adjNodes;
@@ -46,7 +45,7 @@ public class Grid {
     
     public boolean isInGrid(int x, int y) {
     	if (x < 0 || y < 0) 			return false;
-    	if (x >= Grid.N || y >= Grid.N) return false;
+    	if (x >= dimensions || y >= dimensions) return false;
     	return true;
     }
 }

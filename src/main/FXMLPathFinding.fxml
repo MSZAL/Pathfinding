@@ -42,11 +42,11 @@
                <children>
                   <RadioButton mnemonicParsing="false" text="AStar">
                      <toggleGroup>
-                        <ToggleGroup fx:id="algorithm" />
+                        <ToggleGroup fx:id="toggleGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="DFS" toggleGroup="$algorithm" />
-                  <RadioButton mnemonicParsing="false" text="Dijkstra" toggleGroup="$algorithm" />
+                  <RadioButton mnemonicParsing="false" text="DFS" toggleGroup="$toggleGroup" />
+                  <RadioButton mnemonicParsing="false" text="Dijkstra" toggleGroup="$toggleGroup" />
                </children>
             </VBox>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Left click/drag to place walls" />
