@@ -42,7 +42,7 @@ public class FXMLPathFindingController {
     
     private boolean isValidMousePosition(double x, double y) {
     	
-    	if (x < 0 || x > gridPane.getWidth() || y < 0 || y > gridPane.getHeight())
+    	if (x < 0 || x >= gridPane.getWidth() || y < 0 || y >= gridPane.getHeight())
     		return false;
     	return true;
     }
@@ -104,10 +104,10 @@ public class FXMLPathFindingController {
     	findPath();
     }
     
-    private void resetColors() {
-    	for (int i = 0; i < dimensions - 1; i++) {
-    		for (int j = 0; j < dimensions - 1; j++) {
-    			Node node = grid.getNode(j, i);
+    private void reset() {
+    	for (int i = 0; i < dimensions; i++) {
+    		for (int j = 0; j < dimensions; j++) {
+    			Node node = grid.getNode(i, j);
     			if (!node.isWall() && !node.equals(start) && !node.equals(end))
     				node.setFill(Color.WHITE);
     		}
@@ -121,8 +121,8 @@ public class FXMLPathFindingController {
     	String algorithm = ((RadioButton) toggleGroup.getSelectedToggle()).getText();
     	boolean diagonal = allowDiagonal.isSelected();
     	
-    	grid.resetCosts();
-    	resetColors();
+    	grid.resetCosts(false);
+    	reset();
     	
     	if (algorithm.equals("AStar")) {
     		Pathfinding.aStar(start, end, grid);
@@ -175,7 +175,7 @@ public class FXMLPathFindingController {
 			}
     	};
     	
-    	// When user changes their algorithm option it should run newly selected algorithm
+    	// When user changes their algorithm option it should run the newly selected algorithm
     	ChangeListener<Toggle> toggleListener = new ChangeListener<Toggle>() {
 
 			@Override
@@ -210,6 +210,7 @@ public class FXMLPathFindingController {
                   }
               }
               
+              // Tracking mouse movement for later use in the keyHandler to set start/end
               if (event.getEventType() == MouseEvent.MOUSE_MOVED) {
             	  currentMouseX = event.getX();
             	  currentMouseY = event.getY();

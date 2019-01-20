@@ -26,7 +26,7 @@ public class Pathfinding {
 			Node element = stack.pop();
 			
 			if (!element.equals(start) && !element.equals(end))
-				// element.setFill(Color.BLUE);
+				element.setFill(Color.AQUAMARINE);
 			
 			if (element.equals(end))
 				return true;
@@ -37,8 +37,6 @@ public class Pathfinding {
 				if (visited.get(n) == null && !n.isWall()) {
 					stack.add(n);
 					visited.put(n,true);
-					if (!n.equals(start) && !n.equals(end))
-						n.setFill(Color.AQUAMARINE);
 				}
 			}
 		}
@@ -89,7 +87,7 @@ public class Pathfinding {
 			
 			// Highlight all nodes visited
 			if (!current.equals(start) && !current.equals(end))
-				// current.setFill(Color.YELLOW);
+				current.setFill(Color.YELLOW);
 			
 			if (visited.contains(end)) break;
 		}
@@ -177,7 +175,7 @@ public class Pathfinding {
 			visited.add(current);
 			
 			if (!current.equals(start) && !current.equals(end))
-				// current.setFill(Main.VISITED);
+				 current.setFill(Color.YELLOW);
 			
 			if (visited.contains(end)) break;
 		}
@@ -185,7 +183,7 @@ public class Pathfinding {
 		Node predecessor = end.predecessor;
 		while (predecessor != null) {
 			if (predecessor.equals(start)) return true;
-			predecessor.setFill(Main.PATH);
+			predecessor.setFill(Color.AQUAMARINE);
 			predecessor = predecessor.predecessor;
 		}
 		

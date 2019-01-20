@@ -40,13 +40,13 @@
             </VBox>
             <VBox spacing="10">
                <children>
-                  <RadioButton mnemonicParsing="false" text="AStar">
+                  <RadioButton mnemonicParsing="false" text="DFS">
                      <toggleGroup>
                         <ToggleGroup fx:id="toggleGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="DFS" toggleGroup="$toggleGroup" />
                   <RadioButton mnemonicParsing="false" text="Dijkstra" toggleGroup="$toggleGroup" />
+                  <RadioButton mnemonicParsing="false" text="AStar" toggleGroup="$toggleGroup" />
                   <CheckBox fx:id="allowDiagonal" mnemonicParsing="false" text="Travel Diagonally">
                      <VBox.margin>
                         <Insets top="15.0" />

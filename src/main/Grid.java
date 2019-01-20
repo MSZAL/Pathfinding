@@ -49,11 +49,16 @@ public class Grid {
     	return true;
     }
     
-    public void resetCosts() {
+    public void resetCosts(boolean includeWalls) {
     	for (int i = 0; i < area.length; i++) {
-    		for (int j = 0; j < area[0].length; j++) {
+    		for (int j = 0; j < area.length; j++) {
     			Node node = getNode(i, j);
-    			node.reset();
+    			
+    			if (includeWalls)
+    				node.reset();
+    			else if (!node.isWall()) {
+    				node.reset();
+    			}
     		}
     	}
     }
