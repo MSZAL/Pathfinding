@@ -26,7 +26,7 @@ public class Pathfinding {
 			Node element = stack.pop();
 			
 			if (!element.equals(start) && !element.equals(end))
-				element.setFill(Color.BLUE);
+				// element.setFill(Color.BLUE);
 			
 			if (element.equals(end))
 				return true;
@@ -89,7 +89,7 @@ public class Pathfinding {
 			
 			// Highlight all nodes visited
 			if (!current.equals(start) && !current.equals(end))
-				current.setFill(Color.YELLOW);
+				// current.setFill(Color.YELLOW);
 			
 			if (visited.contains(end)) break;
 		}
@@ -177,7 +177,7 @@ public class Pathfinding {
 			visited.add(current);
 			
 			if (!current.equals(start) && !current.equals(end))
-				current.setFill(Main.VISITED);
+				// current.setFill(Main.VISITED);
 			
 			if (visited.contains(end)) break;
 		}
@@ -191,54 +191,4 @@ public class Pathfinding {
 		
 		return false;
 	}
-	
-//	public static boolean aStar(Node start, Node end, final Grid grid) {
-//		
-//		Set<Node> unvisited = new HashSet<>();
-//		Set<Node> visited 	= new HashSet<>();
-//		
-//		start.setGcost(0);
-//		
-//		unvisited.add(start);
-//		
-//		while (!unvisited.isEmpty()) {
-//			Node current = getLowestDistanceNodeAStar(unvisited);
-//			unvisited.remove(current);
-//			
-//			List<Node> neighbors = grid.getAdjacentNodes(current);
-//			
-//			for (Node node : neighbors) {
-//				if (!node.isWall() && !visited.contains(node)) {
-//					node.setHcost(calculateManhattanDistance(node, end));
-//					
-//					double newDistance = calculateManhattanDistance(current, start);
-//					//int newDistance = current.getGcost() + 1;
-//					if (newDistance < node.getGcost()) {
-//						node.setGcost(newDistance);
-//						node.setPredecessor(current);
-//					}
-//					unvisited.add(node);
-//				}
-//			}
-//			visited.add(current);
-//			
-//			if (!current.equals(start) && !current.equals(end))
-//				current.setFill(Main.VISITED);
-//			
-//			//if (visited.contains(end)) break;
-//		}
-//		
-//		Node node = end;
-//		
-//		// Highlight path
-//		while (node.getPredecessor() != null) {
-//			Node predecessor = node.getPredecessor();
-//			if (!predecessor.equals(start))
-//				predecessor.setFill(Main.PATH);
-//			node = predecessor;
-//		}
-//		
-//		return false;
-//	}
-
 }

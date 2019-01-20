@@ -48,4 +48,13 @@ public class Grid {
     	if (x >= dimensions || y >= dimensions) return false;
     	return true;
     }
+    
+    public void resetCosts() {
+    	for (int i = 0; i < area.length; i++) {
+    		for (int j = 0; j < area[0].length; j++) {
+    			Node node = getNode(i, j);
+    			node.reset();
+    		}
+    	}
+    }
 }

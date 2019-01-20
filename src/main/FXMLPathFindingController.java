@@ -1,12 +1,12 @@
 package main;
 
-import javax.swing.plaf.basic.BasicTabbedPaneUI.MouseHandler;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.KeyEvent;
@@ -14,11 +14,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class FXMLPathFindingController {
     @FXML private GridPane gridPane;
     @FXML private TextField dimensionsField;
     @FXML private ToggleGroup toggleGroup;
+    @FXML private CheckBox allowDiagonal;
     
     private Grid grid;
     private int dimensions;
@@ -30,11 +33,11 @@ public class FXMLPathFindingController {
     private Node end = null;
     
     private int getRow(double x) {
-    	return (int) (x / (gridPane.getWidth() / dimensions));
+    	return (int) (x / ((gridPane.getWidth() / dimensions)));
     }
     
     private int getColumn(double y) {
-    	return (int) (y / (gridPane.getHeight() / dimensions));
+    	return (int) (y / ((gridPane.getHeight() / dimensions)));
     }
     
     private boolean isValidMousePosition(double x, double y) {
@@ -58,6 +61,8 @@ public class FXMLPathFindingController {
 		}
 		
 		node.setWall(setWall);
+		
+		findPath();
 	}
 	
     private void setStart(double x, double y) {
@@ -76,6 +81,8 @@ public class FXMLPathFindingController {
     	start.setFill(Color.GREEN);
     	start.setWall(false);
     	
+    	findPath();
+    	
     }
     
     private void setEnd(double x, double y) {
@@ -93,6 +100,18 @@ public class FXMLPathFindingController {
     	end = node;
     	end.setFill(Color.RED);
     	end.setWall(false);
+    	
+    	findPath();
+    }
+    
+    private void resetColors() {
+    	for (int i = 0; i < dimensions - 1; i++) {
+    		for (int j = 0; j < dimensions - 1; j++) {
+    			Node node = grid.getNode(j, i);
+    			if (!node.isWall() && !node.equals(start) && !node.equals(end))
+    				node.setFill(Color.WHITE);
+    		}
+    	}
     }
     
     private void findPath() {
@@ -100,6 +119,10 @@ public class FXMLPathFindingController {
     	if (start == null || end == null) return;
     	
     	String algorithm = ((RadioButton) toggleGroup.getSelectedToggle()).getText();
+    	boolean diagonal = allowDiagonal.isSelected();
+    	
+    	grid.resetCosts();
+    	resetColors();
     	
     	if (algorithm.equals("AStar")) {
     		Pathfinding.aStar(start, end, grid);
@@ -142,6 +165,27 @@ public class FXMLPathFindingController {
     		}
     	}
     	
+    	// When user has checked or unchecked, should run current algorithm with option
+    	ChangeListener<Boolean> checkBoxListener = new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				findPath();
+				gridPane.requestFocus();
+			}
+    	};
+    	
+    	// When user changes their algorithm option it should run newly selected algorithm
+    	ChangeListener<Toggle> toggleListener = new ChangeListener<Toggle>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Toggle> arg0, Toggle arg1, Toggle arg2) {
+				findPath();
+				gridPane.requestFocus();
+			}
+    		
+    	};
+    	
     	EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
 
 			@Override
@@ -182,17 +226,18 @@ public class FXMLPathFindingController {
 				// Assign start node
 				if (key == KeyCode.S) {
 					setStart(currentMouseX, currentMouseY);
-					findPath();
 				}
 				
 				// Assign end node
 				else if (key == KeyCode.E) {
 					setEnd(currentMouseX, currentMouseY);
-					findPath();
 				}
 			}
     		
     	};
+    	
+    	toggleGroup.selectedToggleProperty().addListener(toggleListener);
+    	allowDiagonal.selectedProperty().addListener(checkBoxListener);
     	
     	gridPane.setOnMouseClicked(mouseHandler);
     	gridPane.setOnMouseDragged(mouseHandler);

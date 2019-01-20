@@ -8,14 +8,14 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox prefHeight="500" prefWidth="1240" spacing="40" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLPathFindingController">
+<HBox prefHeight="560.0" prefWidth="840.0" spacing="40" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLPathFindingController">
     <padding>
    		<Insets bottom="25.0" top="25.0" />
     </padding>
     <children>
    
    	
-   	<GridPane hgap="0" vgap="0" fx:id="gridPane" minHeight="500" minWidth="500" maxHeight="500" maxWidth="500" >
+   	<GridPane fx:id="gridPane" hgap="0" maxHeight="500" maxWidth="500" minHeight="500" minWidth="500" vgap="0">
          <HBox.margin>
             <Insets left="25.0" />
          </HBox.margin>
@@ -47,10 +47,21 @@
                   </RadioButton>
                   <RadioButton mnemonicParsing="false" text="DFS" toggleGroup="$toggleGroup" />
                   <RadioButton mnemonicParsing="false" text="Dijkstra" toggleGroup="$toggleGroup" />
+                  <CheckBox fx:id="allowDiagonal" mnemonicParsing="false" text="Travel Diagonally">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </CheckBox>
                </children>
             </VBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Left click/drag to place walls" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Right click/drag to destroy walls" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="25.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Left click/drag to place walls" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Right click/drag to destroy walls" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hit S to set a start point" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hit E to set a end point" />
+               </children>
+            </VBox>
          </children>
          <HBox.margin>
             <Insets />

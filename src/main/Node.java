@@ -1,8 +1,5 @@
 package main;
 
-import javax.annotation.PreDestroy;
-
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Node extends Rectangle {
@@ -34,8 +31,7 @@ public class Node extends Rectangle {
 		this.isWall = isWall;
 	}
 	
-	public void reset(boolean keepWall) {
-		isWall = keepWall;
+	public void reset() {
 	    globalCost = Double.MAX_VALUE;
 	    localCost = Double.MAX_VALUE;
 	    predecessor = null;
