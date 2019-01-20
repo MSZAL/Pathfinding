@@ -25,7 +25,7 @@ public class Grid {
     }
     
     // Returns nodes top, right, down, left if valid
-    public ArrayList<Node> getAdjacentNodes(Node b) {
+    public ArrayList<Node> getAdjacentEdgeNodes(Node b) {
     	ArrayList<Node> adjNodes = new ArrayList<>();
     	
     	int posX = (int) b.getX();
@@ -39,6 +39,24 @@ public class Grid {
     		adjNodes.add(getNode(posX, posY - 1));
     	if (posY + 1 < dimensions)
     		adjNodes.add(getNode(posX, posY + 1));
+    	
+    	return adjNodes;
+    }
+    
+    public ArrayList<Node> getAllAdjacentNodes(Node b) {
+    	ArrayList<Node> adjNodes = getAdjacentEdgeNodes(b);
+    	
+    	int posX = (int) b.getX();
+    	int posY = (int) b.getY();
+    	
+    	if (posX - 1 >= 0 && posY - 1 >= 0)
+    		adjNodes.add(getNode(posX - 1, posY - 1));
+    	if (posX + 1 < dimensions && posY + 1 < dimensions)
+    		adjNodes.add(getNode(posX + 1, posY + 1));
+    	if (posX - 1 >= 0 && posY + 1 < dimensions)
+    		adjNodes.add(getNode(posX - 1, posY + 1));
+    	if (posX + 1 < dimensions && posY - 1 >= 0)
+    		adjNodes.add(getNode(posX + 1, posY - 1));
     	
     	return adjNodes;
     }

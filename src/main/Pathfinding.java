@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 public class Pathfinding {
 	
 	
-	public static boolean dfs(Node start, Node end, final Grid grid) {
+	public static boolean dfs(Node start, Node end, boolean diagonal, final Grid grid) {
 		
 		Stack<Node> stack = new Stack<>();
 		
@@ -31,7 +31,12 @@ public class Pathfinding {
 			if (element.equals(end))
 				return true;
 			
-			List<Node> neighbors = grid.getAdjacentNodes(element);
+			List<Node> neighbors;
+			
+			if (diagonal)
+				neighbors = grid.getAllAdjacentNodes(element);
+			else
+				neighbors = grid.getAdjacentEdgeNodes(element);
 			
 			for (Node n : neighbors) {
 				if (visited.get(n) == null && !n.isWall()) {
@@ -57,7 +62,7 @@ public class Pathfinding {
 		return lowestDistanceNode;
 	}
 	
-	public static boolean dijkstra(Node start, Node end, final Grid grid) {
+	public static boolean dijkstra(Node start, Node end, boolean diagonal, final Grid grid) {
 		
 		Set<Node> unvisited = new HashSet<>();
 		Set<Node> visited 	= new HashSet<>();
@@ -70,7 +75,12 @@ public class Pathfinding {
 			Node current = getLowestDistanceNodeDijkstra(unvisited);
 			unvisited.remove(current);
 			
-			List<Node> neighbors = grid.getAdjacentNodes(current);
+			List<Node> neighbors;
+			
+			if (diagonal)
+				neighbors = grid.getAllAdjacentNodes(current);
+			else
+				neighbors = grid.getAdjacentEdgeNodes(current);
 			
 			for (Node node : neighbors) {
 				if (!node.isWall() && !visited.contains(node)) {
@@ -136,14 +146,17 @@ public class Pathfinding {
 				+ Math.pow(end.getY() - current.getY(), 2));
 	}
 	
-	public static boolean aStar(Node start, Node end, final Grid grid) {
+	public static boolean aStar(Node start, Node end, boolean diagonal, final Grid grid) {
 		
 		Set<Node> unvisited = new HashSet<>();
 		Set<Node> visited = new HashSet<>();
 		
 		start.localCost = 0;
-		start.globalCost = calculateManhattanDistance(start, end);
-		//start.globalCost = pythagoreanDistance(start, end);
+		
+		if (diagonal)
+			start.globalCost = pythagoreanDistance(start, end);
+		else
+			start.globalCost = calculateManhattanDistance(start, end);
 		
 		unvisited.add(start);
 		
@@ -153,7 +166,12 @@ public class Pathfinding {
 			Node current = getLowestGlobalCostNode(unvisited);
 			unvisited.remove(current);
 			
-			List<Node> neighbors = grid.getAdjacentNodes(current);
+			List<Node> neighbors;
+			
+			if (diagonal)
+				neighbors = grid.getAllAdjacentNodes(current);
+			else
+				neighbors = grid.getAdjacentEdgeNodes(current);
 			
 			for (Node x : neighbors) {
 				if (!x.isWall()) {
@@ -162,8 +180,11 @@ public class Pathfinding {
 					
 					if (newLocal < x.localCost) {
 						x.localCost = newLocal;
-						x.globalCost = x.localCost + calculateManhattanDistance(x, end);
-//						x.globalCost = x.localCost + pythagoreanDistance(x, end);
+						
+						if (diagonal)
+							x.globalCost = x.localCost + pythagoreanDistance(x, end);
+						else
+							x.globalCost = x.localCost + calculateManhattanDistance(x, end);
 						x.predecessor = current;
 					}
 					

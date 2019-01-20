@@ -125,13 +125,13 @@ public class FXMLPathFindingController {
     	reset();
     	
     	if (algorithm.equals("AStar")) {
-    		Pathfinding.aStar(start, end, grid);
+    		Pathfinding.aStar(start, end, diagonal, grid);
     	}
     	else if (algorithm.equals("DFS")) {
-    		Pathfinding.dfs(start, end, grid);
+    		Pathfinding.dfs(start, end, diagonal, grid);
     	}
     	else if (algorithm.equals("Dijkstra")) {
-    		Pathfinding.dijkstra(start, end, grid);
+    		Pathfinding.dijkstra(start, end, diagonal, grid);
     	}
     }
         
