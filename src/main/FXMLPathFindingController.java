@@ -148,6 +148,9 @@ public class FXMLPathFindingController {
     	
     	gridPane.getChildren().clear();
     	
+    	start = null;
+    	end = null;
+    	
     	grid = new Grid(dimensions);
     	
     	for (int row = 0; row < dimensions; row++) {
