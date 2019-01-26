@@ -116,7 +116,11 @@ public class FXMLPathFindingController {
     
     private void findPath() {
     	if (toggleGroup.getSelectedToggle() == null) return;
-    	if (start == null || end == null) return;
+    	if (start == null || end == null) {
+    		grid.resetCosts(false);
+    		reset();
+    		return;
+    	}
     	
     	String algorithm = ((RadioButton) toggleGroup.getSelectedToggle()).getText();
     	boolean diagonal = allowDiagonal.isSelected();
