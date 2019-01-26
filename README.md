@@ -7,7 +7,7 @@ This is a JavaFX application that allows the creation of grids with obstacles an
 
 ## Screenshots
 
-![](mszal.github.com/pathfinding/screenshot.png)
+![](https://github.com/MSZAL/Pathfinding/blob/master/screenshot.PNG)
 
 ## Getting started
 
